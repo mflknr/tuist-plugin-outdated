@@ -6,9 +6,16 @@
 
 import Foundation
 
-enum FileServiceError: Error, LocalizedError {
+enum FileServiceError: CustomNSError, LocalizedError {
     case fileNotFound(Path)
     case fileNotReadable(Path)
+
+    var errorCode: Int {
+        switch self {
+        case .fileNotFound: return 11
+        case .fileNotReadable: return 12
+        }
+    }
 
     var errorDescription: String? {
         switch self {

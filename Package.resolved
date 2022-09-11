@@ -64,6 +64,15 @@
       }
     },
     {
+      "identity" : "swiftversioncompare",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mflknr/SwiftVersionCompare.git",
+      "state" : {
+        "revision" : "98169afd739783da8af2fe1805726bf6c450c346",
+        "version" : "1.1.0"
+      }
+    },
+    {
       "identity" : "swiftytexttable",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/scottrhoyt/swiftytexttable.git",

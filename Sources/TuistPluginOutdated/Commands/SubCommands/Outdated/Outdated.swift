@@ -7,18 +7,10 @@
 import ArgumentParser
 import TuistPluginOutdatedFramework
 
-/// The entry point of the plugin. Main command that must be invoked in `main.swift` file.
 struct Outdated: ParsableCommand {
-
     static var configuration: CommandConfiguration = .init(
-        commandName: "plugin-outdated",
-        abstract: "Extend Tuist with a plugin to display out-of-date external dependencies.",
-        discussion: """
-        """,
-        version: "0.0.0",
-        subcommands: [
-            Version.self
-        ]
+        commandName: "outdated",
+        abstract: "Check for resolved and show outdated dependencies."
     )
 
     func run() throws {
@@ -29,12 +21,18 @@ struct Outdated: ParsableCommand {
         )
 
         // get projects external dependency sources
-        let resolvedPackages = resolvedPackagesLocalDS.read() // spm
-        // TODO: plugins
-        // TODO: carthage
+        let resolvedPackages = resolvedPackagesLocalDS.read()
+        let resolvedCarthageFrameworks = [String]()
 
         // get info to transform into dep/isVersion/latestVersion
+        let dependencies = [String]()
 
         // print out
+
+        guard !dependencies.isEmpty else {
+            let error = OutdatedError.noDependencies
+            print(error.localizedDescription)
+            throw error
+        }
     }
 }

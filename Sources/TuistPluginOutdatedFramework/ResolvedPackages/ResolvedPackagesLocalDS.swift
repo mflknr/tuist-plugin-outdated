@@ -8,11 +8,6 @@ import Foundation
 import Files
 
 public protocol ResolvedPackagesLocalDSInterface {
-    func read(from path: Path) -> [ResolvedPackage]
-}
-
-/// A static object that reads the `Package.resolved` file used by Tuist.
-public extension ResolvedPackagesLocalDSInterface {
     /// Returns an array of ``ResolvedPackage`` objects parsed
     /// from Tuists `Package.resolved` files.
     ///
@@ -25,6 +20,10 @@ public extension ResolvedPackagesLocalDSInterface {
     /// - Throws: `ResolvedPackageReadingError.fileNotReadable` if the file at the specified path could not be parsed.
     ///
     /// - Note: The default path for Tuist is `Tuist/Dependencies/Lockfiles/Package.resolved`.
+    func read(from path: Path) -> [ResolvedPackage]
+}
+
+public extension ResolvedPackagesLocalDSInterface {
     func read(
         from path: Path = ResolvedPackagesLocalDSImpl.kPathToTuistResolvedFile
     ) -> [ResolvedPackage] {

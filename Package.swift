@@ -24,6 +24,7 @@ let package = Package(
         .package(url: "https://github.com/johnsundell/shellout.git", exact: "2.3.0"),
         .package(url: "https://github.com/scottrhoyt/swiftytexttable.git", exact: "0.9.0" ),
         .package(url: "https://github.com/onevcat/rainbow.git", exact: "4.0.1"),
+        .package(url: "https://github.com/mflknr/SwiftVersionCompare.git", exact: "1.1.0"),
     ],
     targets: [
         .executableTarget(
@@ -41,6 +42,7 @@ let package = Package(
                 .product(name: "ProjectAutomation", package: "ProjectAutomation"),
                 .product(name: "Files", package: "Files"),
                 .product(name: "ShellOut", package: "ShellOut"),
+                .product(name: "SwiftVersionCompare", package: "SwiftVersionCompare"),
             ]
         ),
         .testTarget(
