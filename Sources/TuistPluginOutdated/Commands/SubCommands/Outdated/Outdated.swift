@@ -22,6 +22,7 @@ struct Outdated: ParsableCommand {
 
         // get projects external dependency sources
         let resolvedPackages = resolvedPackagesLocalDS.read()
+        print(resolvedPackages)
         let resolvedCarthageFrameworks = [String]()
 
         // get info to transform into dep/isVersion/latestVersion
@@ -30,9 +31,7 @@ struct Outdated: ParsableCommand {
         // print out
 
         guard !dependencies.isEmpty else {
-            let error = OutdatedError.noDependencies
-            print(error.localizedDescription)
-            throw error
+            throw OutdatedError.noDependencies
         }
     }
 }

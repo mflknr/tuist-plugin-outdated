@@ -34,7 +34,7 @@ public extension ResolvedPackagesLocalDSInterface {
 public struct ResolvedPackagesLocalDSImpl: ResolvedPackagesLocalDSInterface {
 
     /// Default location of Tuists `Package.resolved` file.
-    public static let kPathToTuistResolvedFile: Path = "Tuist/Dependencies/Lockfiles/Package.resolved"
+    public static let kPathToTuistResolvedFile: Path = "/Tuist/Dependencies/Lockfiles/Package.resolved"
 
     private let fileService: FileServiceInterface
 

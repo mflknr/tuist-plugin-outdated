@@ -16,16 +16,18 @@ public protocol FileServiceInterface {
 public struct FileServiceImpl: FileServiceInterface {
     public init() {}
     public func getFileAndReadData(from path: Path) throws -> Data {
+        let relativePath = FileManager().currentDirectoryPath + path
+        print(relativePath)
         let file: File = try {
-            guard let file = try? File(path: path) else {
-                throw FileServiceError.fileNotFound(path)
+            guard let file = try? File(path: relativePath) else {
+                throw FileServiceError.fileNotFound(relativePath)
             }
 
             return file
         }()
 
         guard let data = try? file.read() else {
-            throw FileServiceError.fileNotReadable(path)
+            throw FileServiceError.fileNotReadable(relativePath)
         }
 
         return data
