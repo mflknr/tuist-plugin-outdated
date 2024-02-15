@@ -2,7 +2,7 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 //
 // tuist-plugin-outdated
-// Copyright (c) Marius Felkner 2022
+// Copyright (c) Marius Felkner 2024
 // Licensed under the MIT license. See LICENSE file.
 //
 
