@@ -16,8 +16,11 @@ jobs:
       if: endsWith(github.ref, 'main') == false
       run: exit -1
       
-    - name: checkout
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
+    - uses: jdx/mise-action@v2
+
+    - name: install tools
+      run: make tools
 
     - name: create artifact
       run: make archive

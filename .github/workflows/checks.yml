@@ -13,9 +13,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: jdx/mise-action@v2
 
-    - name: Build
+    - name: install tools
+      run: make tools
+
+    - name: build
       run: make build
 
-    - name: Tests
+    - name: test
       run: make test

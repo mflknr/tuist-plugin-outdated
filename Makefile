@@ -1,3 +1,6 @@
+tools:
+	mise install
+
 build:
 	tuist plugin build
 
