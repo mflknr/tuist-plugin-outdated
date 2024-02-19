@@ -21,7 +21,7 @@ struct Outdated: ParsableCommand {
     var path: String?
 
     @Flag(name: .long)
-    var verbose: Bool = false
+    var verboseOutput: Bool = false
 
     @Flag(
         name: .shortAndLong,
@@ -30,7 +30,7 @@ struct Outdated: ParsableCommand {
     var all: Bool = false
 
     mutating func run() throws {
-        ExecutableState.shared.isVerbose = verbose
+        ExecutableState.shared.isVerbose = verboseOutput
         ExecutableState.shared.addAllDependenciesToOutput = all
         verboseCallback { print("Verbose output enabled.") }
 
