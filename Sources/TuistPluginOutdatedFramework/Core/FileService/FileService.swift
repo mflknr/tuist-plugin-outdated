@@ -20,7 +20,7 @@ public struct FileServiceImpl: FileServiceInterface {
     public func getFileAndReadData(from path: Path) throws -> Data {
         let absolutePath = FileManager().currentDirectoryPath + path
 
-        verbose { print("Absolute path to Package.resolved file: \(absolutePath)") }
+        verboseCallback { print("Absolute path to Package.resolved file: \(absolutePath)") }
 
         guard let file = try? File(path: absolutePath) else {
             throw FileServiceError.fileNotFound(absolutePath)

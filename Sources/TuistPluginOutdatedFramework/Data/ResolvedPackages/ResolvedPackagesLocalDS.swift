@@ -35,21 +35,25 @@ public struct ResolvedPackagesLocalDSImpl: ResolvedPackagesLocalDSInterface {
         var resolvedPackagePath = C.relativePathToResolvedFile
         if let path {
             resolvedPackagePath = path
-            verbose { print("Using provided path to Package.resolved file.")}
+            verboseCallback { print("Using provided path to Package.resolved file.")}
         } else {
-            verbose { print("No path provided. Will use default path in root.") }
+            verboseCallback { print("No path provided. Will use default path in root.") }
         }
 
-        verbose { print("Relative path to Package.resolved: \(resolvedPackagePath)") }
+        verboseCallback { print("Relative path to Package.resolved: \(resolvedPackagePath)") }
 
         // get `Package.resolved` file from a specified or the default path
         guard let resolvedPackagesData = try? fileService.getFileAndReadData(from: resolvedPackagePath) else {
+            print("Unable to find `Package.resolved` file at path: \(resolvedPackagePath)")
             return []
         }
+
+        print("Found `Package.resolved` file at path: \(resolvedPackagePath)")
 
         // decode `Package.resolved` file for `version: 1`
         let decoder = JSONDecoder()
         if let resolvedPackagesV1 = try? decoder.decode(ResolvedPackageDataModelV1.self, from: resolvedPackagesData) {
+            verboseCallback { print("Decoded packages from v1 .resolved file.") }
             return resolvedPackagesV1
                 .object
                 .pins
@@ -61,10 +65,13 @@ public struct ResolvedPackagesLocalDSImpl: ResolvedPackagesLocalDSInterface {
                         version: $0.state.version
                     )
                 }
+        } else {
+            verboseCallback { print("Unable to decode v1 .resolved file.") }
         }
 
         // decode `Package.resolved` file for `version: 2`
         if let resolvedPackagesV2 = try? decoder.decode(ResolvedPackageDataModelV2.self, from: resolvedPackagesData) {
+            verboseCallback { print("Decoded packages from v2 .resolved file.") }
             return resolvedPackagesV2
                 .pins
                 .map {
@@ -75,6 +82,8 @@ public struct ResolvedPackagesLocalDSImpl: ResolvedPackagesLocalDSInterface {
                         version: $0.state.version
                     )
             }
+        } else {
+            verboseCallback { print("Unable to decode v2 .resolved file.") }
         }
 
         return []

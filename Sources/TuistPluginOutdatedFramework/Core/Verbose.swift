@@ -7,7 +7,7 @@
 import Foundation
 
 /// Execute code only if the verbose flag is `true`.
-func verbose(completion: () -> Void) {
+public func verboseCallback(completion: () -> Void) {
     if ExecutableState.shared.isVerbose {
         completion()
     }

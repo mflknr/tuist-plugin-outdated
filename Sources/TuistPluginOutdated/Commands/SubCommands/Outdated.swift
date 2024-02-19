@@ -23,9 +23,17 @@ struct Outdated: ParsableCommand {
     @Flag(name: .long)
     var verbose: Bool = false
 
-    func run() throws {
+    @Flag(
+        name: .shortAndLong,
+        help: "When set the output also includes up-to-date dependencies."
+    )
+    var all: Bool = false
+
+    mutating func run() throws {
         ExecutableState.shared.isVerbose = verbose
-        
+        ExecutableState.shared.addAllDependenciesToOutput = all
+        verboseCallback { print("Verbose output enabled.") }
+
         let outdated = OutdatedCommand()
         outdated.run(path: path)
     }

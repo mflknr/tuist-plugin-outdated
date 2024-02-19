@@ -15,7 +15,7 @@ public final class ShellOutServiceImpl: ShellOutServiceInterface {
     public init() {}
 
     public func run(command: String) throws -> String {
-        verbose { print("Command: \(command)")}
+        verboseCallback { print("Command: \(command)")}
 
         guard let versionString = try? shellOut(to: command) else {
             throw ShellOutServiceError.commandFailed

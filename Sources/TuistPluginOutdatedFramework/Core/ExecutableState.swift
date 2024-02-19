@@ -10,6 +10,7 @@ public final class ExecutableState {
     public static let shared: ExecutableState = ExecutableState()
 
     public var isVerbose: Bool = false
+    public var addAllDependenciesToOutput: Bool = false
 
     private init() { }
 }
