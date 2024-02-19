@@ -1,5 +1,8 @@
-BINARY_PATH = .build/release/tuist-outdated
-RELEASE_BINARY_ASSET = tuist-plugin-outdated.tuist-plugin.zip
+build:
+	tuist plugin build
 
-release-asset:
+test:
+	tuist plugin test
+
+archive:
 	tuist plugin archive
