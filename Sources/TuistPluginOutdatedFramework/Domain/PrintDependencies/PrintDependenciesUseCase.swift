@@ -14,7 +14,6 @@ public protocol PrintDependenciesUseCase {
 public final class PrintDependenciesUseCaseImpl: PrintDependenciesUseCase {
     public init() {}
 
-    // TODO: coloring
     public func makeTable(from dependencies: [Dependency]) -> String {
         let packageNameColumn = TextTableColumn(header: "Package")
         let packageUrlColumn = TextTableColumn(header: "URL")

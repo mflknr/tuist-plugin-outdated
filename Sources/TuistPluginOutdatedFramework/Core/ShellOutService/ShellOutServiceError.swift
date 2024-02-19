@@ -6,7 +6,6 @@
 
 import Foundation
 
-// TODO: streamline error handling and error types
 enum ShellOutServiceError: CustomNSError, LocalizedError {
     case commandFailed
 
@@ -19,7 +18,7 @@ enum ShellOutServiceError: CustomNSError, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .commandFailed:
-            return "Command to retrieve version from remote repository failed. Use --verbose to see more details."
+            return "The invoked shell command failed."
         }
     }
 }

@@ -20,7 +20,6 @@ struct Outdated: ParsableCommand {
     )
     var path: String?
 
-    // TODO: fix flag
     @Flag(name: .long)
     var verbose: Bool = false
 

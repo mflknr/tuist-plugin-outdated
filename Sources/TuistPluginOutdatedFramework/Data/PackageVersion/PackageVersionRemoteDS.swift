@@ -29,7 +29,6 @@ public final class PackageVersionRemoteDSImpl: PackageVersionRemoteDSInterface {
             if let latestVersion = try? shellOutService.run(command: command) {
                 guard let currentVersionString = resolvedPackage.version,
                       let currentVersion = Version(currentVersionString) else {
-                    // TODO: handle diff current (e.g. hash)
                     return []
                 }
 
