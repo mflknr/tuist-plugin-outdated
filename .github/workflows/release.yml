@@ -1,0 +1,31 @@
+name: release
+
+on: 
+  push:
+    tags:
+    - '*'
+
+jobs:
+
+  build:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    steps:
+    - name: exit if not on main branch
+      if: endsWith(github.ref, 'main') == false
+      run: exit -1
+      
+    - name: checkout
+      uses: actions/checkout@v3
+
+    - name: create artifact
+      run: make archive
+    
+    - name: create release
+      uses: ncipollo/release-action@v1
+      with:
+        artifactErrorsFailBuild: true
+        artifacts: "tuist-plugin-outdated.tuist-plugin.zip"
+        draft: true
+        skipIfReleaseExists: true
