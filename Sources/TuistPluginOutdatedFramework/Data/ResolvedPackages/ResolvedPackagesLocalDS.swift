@@ -6,6 +6,8 @@
 
 import Foundation
 import Files
+import ProjectAutomation
+import ShellOut
 
 public protocol ResolvedPackagesLocalDSInterface {
     /// Returns an array of ``ResolvedPackage`` objects parsed
@@ -18,23 +20,10 @@ public protocol ResolvedPackagesLocalDSInterface {
     ///
     /// - Throws: `ResolvedPackageReadingError.fileNotFound` if a file at the specified path could not be found.
     /// - Throws: `ResolvedPackageReadingError.fileNotReadable` if the file at the specified path could not be parsed.
-    ///
-    /// - Note: The default path for Tuist is `Tuist/Dependencies/Lockfiles/Package.resolved`.
-    func read(from path: Path) -> [ResolvedPackage]
-}
-
-public extension ResolvedPackagesLocalDSInterface {
-    func read(
-        from path: Path = ResolvedPackagesLocalDSImpl.kPathToTuistResolvedFile
-    ) -> [ResolvedPackage] {
-        read(from: path)
-    }
+    func read(from path: String?) -> [ResolvedPackage]
 }
 
 public struct ResolvedPackagesLocalDSImpl: ResolvedPackagesLocalDSInterface {
-
-    /// Default location of Tuists `Package.resolved` file.
-    public static let kPathToTuistResolvedFile: Path = "/Tuist/Dependencies/Lockfiles/Package.resolved"
 
     private let fileService: FileServiceInterface
 
@@ -42,11 +31,23 @@ public struct ResolvedPackagesLocalDSImpl: ResolvedPackagesLocalDSInterface {
         self.fileService = fileService
     }
 
-    public func read(from path: Path) -> [ResolvedPackage] {
-        guard let resolvedPackagesData = try? fileService.getFileAndReadData(from: path) else {
+    public func read(from path: String?) -> [ResolvedPackage] {
+        var resolvedPackagePath = C.relativePathToResolvedFile
+        if let path {
+            resolvedPackagePath = path
+            verbose { print("Using provided path to Package.resolved file.")}
+        } else {
+            verbose { print("No path provided. Will use default path in root.") }
+        }
+
+        verbose { print("Relative path to Package.resolved: \(resolvedPackagePath)") }
+
+        // get `Package.resolved` file from a specified or the default path
+        guard let resolvedPackagesData = try? fileService.getFileAndReadData(from: resolvedPackagePath) else {
             return []
         }
 
+        // decode `Package.resolved` file for `version: 1`
         let decoder = JSONDecoder()
         if let resolvedPackagesV1 = try? decoder.decode(ResolvedPackageDataModelV1.self, from: resolvedPackagesData) {
             return resolvedPackagesV1
@@ -62,8 +63,9 @@ public struct ResolvedPackagesLocalDSImpl: ResolvedPackagesLocalDSInterface {
                 }
         }
 
-        if let resolvedPackagesV1 = try? decoder.decode(ResolvedPackageDataModelV2.self, from: resolvedPackagesData) {
-            return resolvedPackagesV1
+        // decode `Package.resolved` file for `version: 2`
+        if let resolvedPackagesV2 = try? decoder.decode(ResolvedPackageDataModelV2.self, from: resolvedPackagesData) {
+            return resolvedPackagesV2
                 .pins
                 .map {
                     ResolvedPackage(

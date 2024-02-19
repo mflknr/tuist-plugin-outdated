@@ -12,7 +12,7 @@ struct MainCommand: ParsableCommand {
     static var configuration: CommandConfiguration = .init(
         commandName: "plugin-outdated",
         abstract: "Extend Tuist with a plugin to display out-of-date external dependencies.",
-        version: K.version.absoluteString,
+        version: C.version.absoluteString,
         subcommands: [
             Outdated.self
         ],

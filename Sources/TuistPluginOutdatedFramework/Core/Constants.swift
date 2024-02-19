@@ -6,6 +6,9 @@
 
 import SwiftVersionCompare
 
-public enum K {
+public typealias C = Constants
+
+public enum Constants {
     public static let version = Version(0, 0, 0)
+    public static let relativePathToResolvedFile = "/Package.resolved"
 }

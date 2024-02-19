@@ -32,8 +32,6 @@ let package = Package(
             dependencies: [
                 "TuistPluginOutdatedFramework",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                .product(name: "SwiftyTextTable", package: "SwiftyTextTable"),
-                .product(name: "Rainbow", package: "Rainbow"),
             ]
         ),
         .target(
@@ -43,6 +41,8 @@ let package = Package(
                 .product(name: "Files", package: "Files"),
                 .product(name: "ShellOut", package: "ShellOut"),
                 .product(name: "SwiftVersionCompare", package: "SwiftVersionCompare"),
+                .product(name: "SwiftyTextTable", package: "SwiftyTextTable"),
+                .product(name: "Rainbow", package: "Rainbow"),
             ]
         ),
         .testTarget(

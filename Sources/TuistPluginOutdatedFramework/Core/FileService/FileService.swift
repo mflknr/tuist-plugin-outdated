@@ -14,20 +14,20 @@ public protocol FileServiceInterface {
 }
 
 public struct FileServiceImpl: FileServiceInterface {
-    public init() {}
-    public func getFileAndReadData(from path: Path) throws -> Data {
-        let relativePath = FileManager().currentDirectoryPath + path
-        print(relativePath)
-        let file: File = try {
-            guard let file = try? File(path: relativePath) else {
-                throw FileServiceError.fileNotFound(relativePath)
-            }
 
-            return file
-        }()
+    public init() {}
+
+    public func getFileAndReadData(from path: Path) throws -> Data {
+        let absolutePath = FileManager().currentDirectoryPath + path
+
+        verbose { print("Absolute path to Package.resolved file: \(absolutePath)") }
+
+        guard let file = try? File(path: absolutePath) else {
+            throw FileServiceError.fileNotFound(absolutePath)
+        }
 
         guard let data = try? file.read() else {
-            throw FileServiceError.fileNotReadable(relativePath)
+            throw FileServiceError.fileNotReadable(absolutePath)
         }
 
         return data
