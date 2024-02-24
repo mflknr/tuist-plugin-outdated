@@ -8,20 +8,15 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-latest
-
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: jdx/mise-action@v2
     - uses: swift-actions/setup-swift@v1
       with: 
         swift-version: '5.9.2'
 
-    - run: swift -v
-
-    - name: install tools
-      run: make tools
+    - run: swift --version
 
     - name: build
       run: make build

@@ -89,6 +89,8 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-
 # vscode
 .vscode/
+
+# artifacts
+tuist-plugin-outdated.tuist-plugin.zip

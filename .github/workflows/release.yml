@@ -6,7 +6,6 @@ on:
     - '*'
 
 jobs:
-
   build:
     runs-on: macos-latest
     permissions:
@@ -16,16 +15,13 @@ jobs:
       if: endsWith(github.ref, 'main') == false
       run: exit -1
       
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: jdx/mise-action@v2
     - uses: swift-actions/setup-swift@v1
       with: 
         swift-version: '5.9.2'
 
-    - run: swift -v
-
-    - name: install tools
-      run: make tools
+    - run: swift --version
 
     - name: create artifact
       run: make archive
@@ -37,3 +33,4 @@ jobs:
         artifacts: "tuist-plugin-outdated.tuist-plugin.zip"
         draft: true
         skipIfReleaseExists: true
+        bodyFile: "CHANGELOG.md"

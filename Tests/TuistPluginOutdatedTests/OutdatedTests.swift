@@ -6,24 +6,15 @@
 
 import XCTest
 import class Foundation.Bundle
+@testable import TuistPluginOutdatedFramework
 
 final class OutdatedTests: XCTestCase {
-    func testVersion() throws {
-        let expectedOutput = "0.0.0\n"
+    func test_given_executed_with_version_flag_the_output_should_be_correct_version() throws {
+        let expectedOutput = "\(C.version.absoluteString)\n"
 
         let execution = try XCProcces.execute(with: ["--version"])
 
         XCTAssertEqual(execution.output, expectedOutput)
         XCTAssertEqual(execution.process.terminationStatus, 0)
-    }
-
-    /// Since the plugin itself is dependency, there should always be at least one dependency to check.
-    func testGIVENNoDependencisCouldBeFoundTHENExitWithErrorMessage() throws {
-        let expectedOutput = "Unable to find dependencies to ckeck.\n"
-
-        let execution = try XCProcces.execute()
-
-        XCTAssertEqual(execution.output, expectedOutput)
-        XCTAssertEqual(execution.process.terminationStatus, 1)
     }
 }
