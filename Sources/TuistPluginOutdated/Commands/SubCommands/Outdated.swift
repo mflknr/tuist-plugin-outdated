@@ -20,7 +20,14 @@ struct Outdated: ParsableCommand {
     )
     var path: String?
 
-    @Flag(name: .long)
+    @Flag(
+        name: .long,
+        help: ArgumentHelp(
+            "Use this flag to enable even more information output during execution.",
+            discussion: "The standard `--verbose` flag can't be used properly because it would invoke verbosity on the `tuist plugin` call itself.",
+            visibility: .defaultCompletionKind
+        )
+    )
     var verboseOutput: Bool = false
 
     @Flag(
