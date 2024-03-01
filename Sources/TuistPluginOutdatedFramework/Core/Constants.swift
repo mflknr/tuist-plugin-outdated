@@ -4,7 +4,7 @@
 // Licensed under the MIT license. See LICENSE file.
 //
 
-import SwiftVersionCompare
+import VersionCompare
 
 public typealias C = Constants
 

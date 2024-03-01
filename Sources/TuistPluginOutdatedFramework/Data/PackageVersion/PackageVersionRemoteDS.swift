@@ -6,7 +6,7 @@
 
 import Foundation
 import ShellOut
-import SwiftVersionCompare
+import VersionCompare
 
 public protocol PackageVersionRemoteDSInterface {
     /// Get a `Dependency` type for each `ResolvedPackage` with latest version information.
